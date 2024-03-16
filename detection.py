@@ -8,7 +8,7 @@ url = 'http://192.168.10.42:81'
 
 cap = cv2.VideoCapture(url)
 whT=320
-confThreshold = 0.5
+confThreshold = 0.7
 nmsThreshold = 0.3
 classesfile='coco.names'
 classNames=[]
@@ -22,6 +22,9 @@ modelWeights= 'yolov3.weights'
 net = cv2.dnn.readNetFromDarknet(modelConfig,modelWeights)
 net.setPreferableBackend(cv2.dnn.DNN_BACKEND_OPENCV)
 net.setPreferableTarget(cv2.dnn.DNN_TARGET_CPU)
+
+# net.setPreferableBackend(cv2.dnn.DNN_BACKEND_CUDA)
+# net.setPreferableTarget(cv2.dnn.DNN_TARGET_CUDA)
 
 print("Model loaded")
 
@@ -75,28 +78,3 @@ while True:
 
     cv2.imshow('IMage',img)
     cv2.waitKey(1)
-
-# while True:
-#     img_resp=urllib.request.urlopen(url)
-#     print("Image response")
-#     imgnp=np.array(bytearray(img_resp.read()),dtype=np.uint8)
-#     im = cv2.imdecode(imgnp,-1)
-#     sucess, img= cap.read()
-#     blob=cv2.dnn.blobFromImage(im,1/255,(whT,whT),[0,0,0],1,crop=False)
-#     net.setInput(blob)
-#     layernames=net.getLayerNames()
-#     print(layernames)
-#     outputNames = [layernames[i[0]-1] for i in net.getUnconnectedOutLayers()]
-
-#     #print(net.getUnconnectedOutLayers())
-#     outputs = net.forward(outputNames)
-#     #print(outputs[0].shape)
-#     #print(outputs[1].shape)
-#     #print(outputs[2].shape)
-#     #print(outputs[0][0])
-#     findObject(outputs,im)
-
-
-
-#     cv2.imshow('IMage',im)
-#     cv2.waitKey(1)
