@@ -74,7 +74,13 @@ while True:
     #print(outputs[0][0])
     findObject(outputs,img)
 
-
-
     cv2.imshow('IMage',img)
-    cv2.waitKey(1)
+
+    if cv2.waitKey(1) == ord('q'):
+        break
+
+    if cv2.getWindowProperty('IMage',cv2.WND_PROP_VISIBLE) < 1:
+        break
+
+print("Closing...")
+cv2.destroyAllWindows()
